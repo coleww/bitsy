@@ -1,5 +1,28 @@
 function Exporter() {
 
+var resources = new ResourceLoader();
+
+resources.load("other", "exportTemplate.html");
+resources.load("style", "exportStyleFixed.css");
+resources.load("style", "exportStyleFull.css");
+resources.load("script", "bitsy.js");
+resources.load("script", "font.js");
+resources.load("script", "dialog.js");
+resources.load("script", "script.js");
+resources.load("script", "color_util.js");
+resources.load("script", "renderer.js");
+resources.load("script", "transition.js");
+
+
+// LOAD HACKS needed for current project
+
+resources.load("hacks", "falling-movement.js");
+resources.load("hacks", "step-counter.js");
+resources.load("hacks", "end-from-dialog.js");
+resources.load("hacks", "exit-from-dialog.js");
+resources.load("hacks", "move-back.js");
+resources.load("hacks", "directional-avatar.js");
+
 /* exporting */
 function escapeSpecialCharacters(str) {
 	str = str.replace(/\\/g, '\\\\');
@@ -42,6 +65,18 @@ this.exportGame = function(gameData, title, pageColor, filename, isFixedSize, si
 
 	html = replaceTemplateMarker( html, "@@D", gameData );
 
+
+	var hacks = resources.get("falling-movement.js") + '\n' +
+	resources.get("step-counter.js") + '\n' +
+	resources.get("end-from-dialog.js") + '\n' +
+	resources.get("exit-from-dialog.js") + '\n' +
+	resources.get("move-back.js") + '\n' +
+	resources.get("directional-avatar.js");
+
+	html = replaceTemplateMarker( html, "@@HACKS", hacks );
+
+
+
 	// console.log(html);
 
 	ExporterUtils.DownloadFile( filename, html );
@@ -82,7 +117,7 @@ this.importGame = function( html ) {
 		gameDataStr = gameDataStr.replace(/\\n/g, "\n"); //todo: move this into the method below
 		gameDataStr = unescapeSpecialCharacters( gameDataStr );
 
-		return gameDataStr;		
+		return gameDataStr;
 	}
 
 	// IMPORT : new style
