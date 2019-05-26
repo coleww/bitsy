@@ -1,3 +1,50 @@
+var HACKS = [
+	// "avatar-by-room",
+	// "basic-sfx",
+	// "bitsymuse",
+	// "canvas-replacement",
+	// "character-portraits-animated",
+	// "character-portraits",
+	// "close-on-ending",
+	// "corrupt",
+	// "custom-exit-effects",
+	// "custom-text-effect",
+	// "dialog-box-transition",
+	// "dialog-choices",
+	// "dialog-jump",
+	// "dialog-pause",
+	// "direction-in-dialog",
+	// "directional-avatar",
+	// "dynamic-background",
+	// "edit-dialog-from-dialog",
+	// "edit-image-from-dialog",
+	// "end-from-dialog",
+	// "exit-from-dialog",
+	// "external-game-data",
+	// "favicon-from-sprite",
+	// "follower",
+	// "gamepad-input",
+	// "itsy-bitsy",
+	// "javascript-dialog",
+	// "logic-operators-extended",
+	// "multi-sprite-avatar",
+	// "noclip",
+	// "online",
+	// "opaque-tiles",
+	// "paragraph-break",
+	// "permanent-items",
+	// "save",
+	// "solid-items",
+	// "stopwatch",
+	// "text-to-speech",
+	// "tracery-processing",
+	// "transitions",
+	// "transparent-dialog",
+	// "transparent-sprites",
+	// "twine-bitsy-comms",
+	// "unique-items"
+]
+
 function Exporter() {
 
 var resources = new ResourceLoader();
@@ -15,13 +62,9 @@ resources.load("script", "transition.js");
 
 
 // LOAD HACKS needed for current project
-
-resources.load("hacks", "falling-movement.js");
-resources.load("hacks", "step-counter.js");
-resources.load("hacks", "end-from-dialog.js");
-resources.load("hacks", "exit-from-dialog.js");
-resources.load("hacks", "move-back.js");
-resources.load("hacks", "directional-avatar.js");
+HACKS.forEach(function (hack) {
+	resources.load("hacks", `${hack}.js`);
+})
 
 /* exporting */
 function escapeSpecialCharacters(str) {
@@ -66,12 +109,9 @@ this.exportGame = function(gameData, title, pageColor, filename, isFixedSize, si
 	html = replaceTemplateMarker( html, "@@D", gameData );
 
 
-	var hacks = resources.get("falling-movement.js") + '\n' +
-	resources.get("step-counter.js") + '\n' +
-	resources.get("end-from-dialog.js") + '\n' +
-	resources.get("exit-from-dialog.js") + '\n' +
-	resources.get("move-back.js") + '\n' +
-	resources.get("directional-avatar.js");
+	var hacks = HACKS.map(function (hack) {
+		return resources.get(`${hack}.js`);
+	}).join("\n");
 
 	html = replaceTemplateMarker( html, "@@HACKS", hacks );
 
