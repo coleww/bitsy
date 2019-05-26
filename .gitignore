@@ -14,3 +14,4 @@ build/*
 cache/*
 experiments/node_modules/*
 editor/shared/hacks
+.DS_Store
