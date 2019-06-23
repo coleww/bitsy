@@ -1,3 +1,15 @@
+var TUNES = `
+<audio id="crash" src="./audio/crash.wav"></audio>
+<audio id="slash" src="./audio/slash.wav"></audio>
+<audio id="slicebig" src="./audio/slicebig.wav"></audio>
+<audio id="slicesmall" src="./audio/slicesmall.wav"></audio>
+<audio id="swoosh" src="./audio/swoosh.wav"></audio>
+<audio id="talk1" src="./audio/talk1.wav"></audio>
+<audio id="talk2" src="./audio/talk2.wav"></audio>
+<audio id="talk3" src="./audio/talk3.wav"></audio>
+`
+
+
 var HACKS = [
 	// "avatar-by-room",
 	// "basic-sfx",
@@ -40,9 +52,73 @@ var HACKS = [
 	// "tracery-processing",
 	// "transitions",
 	// "transparent-dialog",
-	// "transparent-sprites",
 	// "twine-bitsy-comms",
 	// "unique-items"
+
+
+
+	// :3
+	// "javascript-dialog",
+
+		// CHOPPIE!
+
+
+	"end-from-dialog",
+	"exit-from-dialog",
+	"health",
+	"falling-movement",
+	"step-counter",
+	"move-back",
+	// "directional-avatar",
+
+// USE THIS to show image for alien thing?
+	// "character-portraits",
+
+
+	"transparent-sprites",
+	"edit-image-from-dialog",
+	"permanent-items",
+
+	"reset-items",
+
+		// "basic-sfx",
+
+		// playbackRate
+	// HOW TO USE:
+	// 1. Place your "walk" and "talk" sound files somewhere relative to your bitsy html file
+	// 2. Copy-paste `<audio id="walk" src="<relative path to your walk sound file>" preload="auto" volume="1.0"></audio>` into the <body> of your document
+	// 3. Copy-paste `<audio id="talk" src="<relative path to your talk sound file>" preload="auto" volume="1.0"></audio>` into the <body> of your document
+	// 4. Copy-paste this script into a script tag after the bitsy source
+// <audio id="walk" src="<relative path to your walk sound file>" preload="auto" volume="1.0"></audio>
+// <audio id="talk" src="<relative path to your talk sound file>" preload="auto" volume="1.0"></audio>
+
+	"bitsymuse",
+
+	//
+	// HOW TO USE:
+	// 1. Place your audio files somewhere relative to your bitsy html file (in the zip if you're uploading to itch.io)
+	// 2. Copy-paste `<audio id="sound ID" src="relative path to sound file"></audio>` into the <head> of your document.
+	//    You need to do it once for each sound file you are adding, and each needs a unique sound ID. Add `loop` after the `src=""`
+	//    tag if it's music that's going to loop (e.g. `<audio id="sound ID" src="./mySong.mp3" loop></audio>`)
+	// 3. Copy-paste this script into a script tag after the bitsy source.
+	// 4. Edit hackOptions below to set up the TRACK LIST for rooms you move through.
+	//
+	// In addition to the track list, which will play audio based on the room number/name,
+	// you have access to the following commands you can add to dialogue:
+	//
+	// 1. (soundeffectNow "<sound ID>") will play a sound without interrupting the music as soon as it is called in the dialogue
+	// 2. (soundeffect "<sound ID>") will play a sound without interrupting the music once the dialogue box closes
+	// 3. (musicNow "<sound ID>") will change the music as soon as it is called in the dialogue
+	// 4. (music "<sound ID>") will change the music once the dialogue box closes
+	//
+	// You can call both musicNow and music in the same dialogue, to e.g. change the music while you speak to a character
+	// and then restart the regular room music once you stop speaking to them.
+	// You can also use a special ID ("S" by default) to Silence the music.
+
+
+
+	// RAWKIE!
+	// "jump"
 ]
 
 function Exporter() {
@@ -114,6 +190,9 @@ this.exportGame = function(gameData, title, pageColor, filename, isFixedSize, si
 	}).join("\n");
 
 	html = replaceTemplateMarker( html, "@@HACKS", hacks );
+
+
+		html = replaceTemplateMarker( html, "@@TUNES", TUNES );
 
 
 

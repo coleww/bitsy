@@ -243,7 +243,7 @@ function onready(startWithTitle) {
 
 	update_interval = setInterval(update,16);
 
-	if(startWithTitle) { // used by editor 
+	if(startWithTitle) { // used by editor
 		startNarrating(title);
 	}
 }
@@ -984,7 +984,9 @@ function movePlayer(direction) {
 		player().y += 1;
 		didPlayerMoveThisFrame = true;
 	}
-	
+
+	console.log('MOVED', didPlayerMoveThisFrame, player().x, player().y)
+
 	var ext = getExit( player().room, player().x, player().y );
 	var end = getEnding( player().room, player().x, player().y );
 	// TODO : vNext
@@ -1344,7 +1346,7 @@ function serializeWorld(skipFonts) {
 			// old non-comma separated format
 			for (i in room[id].tilemap) {
 				for (j in room[id].tilemap[i]) {
-					worldStr += room[id].tilemap[i][j];	
+					worldStr += room[id].tilemap[i][j];
 				}
 				worldStr += "\n";
 			}
@@ -1641,7 +1643,7 @@ function parseRoom(lines, i) {
 				};
 			}
 			else if ( flags.ROOM_FORMAT == 0 ) { // TODO: right now this shortcut only works w/ the old comma separate format
-				/* PLACE MULTIPLE SPRITES*/ 
+				/* PLACE MULTIPLE SPRITES*/
 				//Does find and replace in the tilemap (may be hacky, but its convenient)
 				var sprList = sprId.split(",");
 				for (row in room[id].tilemap) {
